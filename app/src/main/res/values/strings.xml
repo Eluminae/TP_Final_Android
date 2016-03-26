@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Seismes</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_single">SingleActivity</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps_activity_single">Map</string>
+    <string name="title_activity_maps_activity_all">Map</string>
+</resources>
