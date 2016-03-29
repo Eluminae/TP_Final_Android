@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashScreen"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,10 +50,10 @@
         <activity
             android:name=".MapsActivitySingle"
             android:label="@string/title_activity_maps_activity_single" />
-
         <activity
             android:name=".MapsActivityAll"
-            android:label="@string/title_activity_maps_activity_all"></activity>
+            android:label="@string/title_activity_maps_activity_all" />
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

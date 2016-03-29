@@ -1,5 +1,6 @@
 package com.example.defaut.tp_final;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,9 +13,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 
 /**
@@ -26,12 +25,30 @@ public class MyAsyncTask extends AsyncTask<Object, Void, ArrayList<Seisme>> {
 
     MainActivity activity = null;
 
+    ProgressDialog progressDialog;
+
+    public MyAsyncTask(MainActivity activity){
+        this.activity = activity;
+        progressDialog = new ProgressDialog(activity);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setProgress(0);
+        progressDialog.show();
+
+
+    }
+
     @Override
     protected ArrayList<Seisme> doInBackground(Object[] obj) {
 
         textVueRessourceiD = (Integer) obj[0];
-        activity = (MainActivity) obj[1];
-
 
         ArrayList<Seisme> listeSeisme= (ArrayList<Seisme>) obj[2];
         ArrayList<Seisme> listeSeismeTemporaire = new ArrayList<Seisme>();
@@ -157,11 +174,14 @@ public class MyAsyncTask extends AsyncTask<Object, Void, ArrayList<Seisme>> {
     protected void onPostExecute(ArrayList<Seisme> o) {
         super.onPostExecute(o);
 
-
         // on crée la vue
         ListView listview = (ListView) activity.findViewById(textVueRessourceiD);
 
         final MyAdapter adapter= new MyAdapter(activity, android.R.layout.simple_list_item_1, o);
         listview.setAdapter(adapter);
+
+        if (progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 }

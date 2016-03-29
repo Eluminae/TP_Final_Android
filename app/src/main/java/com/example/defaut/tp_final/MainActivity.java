@@ -2,8 +2,8 @@ package com.example.defaut.tp_final;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Objects;
-
 public class MainActivity extends Activity {
 
 
@@ -26,7 +24,7 @@ public class MainActivity extends Activity {
 
 
 
-        new MyAsyncTask().execute(liste);
+        new MyAsyncTask(this).execute(liste);
 
 
         super.onCreate(savedInstanceState);
@@ -38,7 +36,6 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //(Seisme) maListeVue.getItemAtPosition(position);
-
 
 
                 Intent intent = new Intent(MainActivity.this, MapsActivitySingle.class);
@@ -103,22 +100,25 @@ public class MainActivity extends Activity {
         });
 
         final Button monBoutonJour = (Button) findViewById(R.id.btDay);
+        final Button monBoutonMois = (Button) findViewById(R.id.btMonth);
+
+        final String colorActif = "#00695c";
+        final String colorPassif = "#e0f2f1";
+
+        monBoutonMois.setBackgroundColor(Color.parseColor(colorPassif));
+        monBoutonJour.setBackgroundColor(Color.parseColor(colorActif));
 
         monBoutonJour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Object[]liste = {R.id.liste, MainActivity.this, listeSeisme, 0};
+                Object[] liste = {R.id.liste, MainActivity.this, listeSeisme, 0};
 
-
-
-                new MyAsyncTask().execute(liste);
+                new MyAsyncTask(MainActivity.this).execute(liste);
+                monBoutonJour.setBackgroundColor(Color.parseColor(colorActif));
+                monBoutonMois.setBackgroundColor(Color.parseColor(colorPassif));
 
             }
         });
-
-
-
-        final Button monBoutonMois = (Button) findViewById(R.id.btMonth);
 
 
         monBoutonMois.setOnClickListener(new View.OnClickListener() {
@@ -126,9 +126,9 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Object[]liste = {R.id.liste, MainActivity.this, listeSeisme, 1};
 
-
-
-                new MyAsyncTask().execute(liste);
+                new MyAsyncTask(MainActivity.this).execute(liste);
+                monBoutonMois.setBackgroundColor(Color.parseColor(colorActif));
+                monBoutonJour.setBackgroundColor(Color.parseColor(colorPassif));
 
             }
         });
